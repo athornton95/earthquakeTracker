@@ -8,11 +8,24 @@ class EarthquakeContainer extends Component{
 
         }
     }
+    TimeConverter(UNIX_timestamp){
+        let a = new Date(UNIX_timestamp);
+        let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        let year = a.getFullYear();
+        let month = months[a.getMonth()];
+        let date = a.getDate();
+        let hour = a.getHours();
+        let min = a.getMinutes();
+        let sec = a.getSeconds();
+        let time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        return time;
+      }
     render(){
         const earthquakeList = this.props.earthquakes.map((earthquake, i) => {
+            console.log(earthquake.properties.time)
             return (
                 <div id = "info" key = {i}>
-                    <p>M {earthquake.properties.mag} - {earthquake.properties.place} / </p>
+                    <p>M: {earthquake.properties.mag} - {earthquake.properties.place} / {this.TimeConverter(earthquake.properties.time)}</p>
                 </div>
             )
         })
